@@ -1,0 +1,62 @@
+{
+    "title": "PyPI Package Insights — input",
+    "description": "Either provide a list of package names or a search query against PyPI. The actor returns supply-chain insights for each package.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "mode": {
+            "title": "Mode",
+            "type": "string",
+            "description": "How to choose packages to analyze.",
+            "editor": "select",
+            "default": "list",
+            "enum": ["list", "search"],
+            "enumTitles": [
+                "Analyze a fixed list of packages",
+                "Search PyPI by keyword"
+            ]
+        },
+        "packages": {
+            "title": "Package names",
+            "type": "array",
+            "description": "Used only when mode = list. One PyPI package name per item (e.g. requests, numpy, fastapi).",
+            "editor": "stringList",
+            "default": [],
+            "items": { "type": "string" }
+        },
+        "query": {
+            "title": "Search query",
+            "type": "string",
+            "description": "Used only when mode = search. PyPI search keyword. Example: 'http client' or 'machine learning'.",
+            "editor": "textfield",
+            "default": ""
+        },
+        "maxResults": {
+            "title": "Max packages",
+            "type": "integer",
+            "description": "Hard cap on how many packages to analyze in this run. Each package costs ~4 API calls.",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 1000
+        },
+        "includeDownloads": {
+            "title": "Include download stats",
+            "type": "boolean",
+            "description": "Pulls last day/week/month/year download counts from pypistats.org. Adds 1 API call per package.",
+            "default": true
+        },
+        "includeVulnerabilities": {
+            "title": "Include known vulnerabilities (OSV)",
+            "type": "boolean",
+            "description": "Queries osv.dev for CVE/GHSA advisories. Adds 1 API call per package.",
+            "default": true
+        },
+        "includeDependencies": {
+            "title": "Include dependency analysis",
+            "type": "boolean",
+            "description": "Counts direct and transitive dependencies via deps.dev. Adds 1 API call per package.",
+            "default": true
+        }
+    },
+    "required": ["mode"]
+}

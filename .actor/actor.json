@@ -1,0 +1,48 @@
+{
+    "actorSpecification": 1,
+    "name": "pypi-package-insights",
+    "title": "PyPI Package Insights",
+    "description": "Bulk supply-chain analytics for Python packages: download trends, version cadence, dependency depth, license, known vulnerabilities (OSV), and a transparent Risk Score 0-100. Search PyPI or analyze a fixed list.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "categories": ["OPEN_SOURCE", "DEVELOPER_TOOLS"],
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "../Dockerfile",
+    "storages": {
+        "dataset": {
+            "actorSpecification": 1,
+            "title": "PyPI Package Insights",
+            "views": {
+                "overview": {
+                    "title": "Overview",
+                    "description": "Headline supply-chain metrics per package",
+                    "transformation": {
+                        "fields": [
+                            "name",
+                            "latest_version",
+                            "downloads_last_month",
+                            "release_count",
+                            "open_vulnerabilities",
+                            "license",
+                            "risk_score",
+                            "pypi_url"
+                        ]
+                    },
+                    "display": {
+                        "component": "table",
+                        "columns": [
+                            { "label": "Package", "field": "name", "format": "link", "linkField": "pypi_url" },
+                            { "label": "Version", "field": "latest_version", "format": "text" },
+                            { "label": "Downloads (month)", "field": "downloads_last_month", "format": "number" },
+                            { "label": "Releases", "field": "release_count", "format": "number" },
+                            { "label": "Open CVEs", "field": "open_vulnerabilities", "format": "number" },
+                            { "label": "License", "field": "license", "format": "text" },
+                            { "label": "Risk", "field": "risk_score", "format": "number" }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

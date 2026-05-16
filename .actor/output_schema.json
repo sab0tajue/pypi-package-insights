@@ -1,0 +1,19 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "PyPI Package Insights — output",
+    "description": "One JSON record per package with download trends, version cadence, dependencies, license, vulnerabilities, and a Risk Score 0-100.",
+    "properties": {
+        "datasetItems": {
+            "type": "string",
+            "title": "Dataset items",
+            "description": "All analyzed packages, one row each.",
+            "template": "{{links.publicDatasetUrl}}"
+        },
+        "datasetOverviewLink": {
+            "type": "string",
+            "title": "Open Overview view",
+            "description": "Open the dataset using the table view defined in this Actor.",
+            "template": "{{links.publicDatasetUrl}}?view=overview"
+        }
+    }
+}
